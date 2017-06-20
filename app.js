@@ -167,6 +167,7 @@ var app_context = '';
 if(nconf.stores.app.get('app:context') !== undefined){
     app_context = '/' + nconf.stores.app.get('app:context');
 }
+console.log(app_context);
 
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '16mb'}));
