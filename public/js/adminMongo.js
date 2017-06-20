@@ -516,10 +516,10 @@ function paginate(){
 function expandDoc(id,obj){
     if($(obj).text()=='expand'){
         $(obj).text('collapse');
-        $('#pre_'+id).attr('style','');
+        $('#pre_'+id).addClass('expanded');
     }else{
         $(obj).text('expand');
-        $('#pre_'+id).attr('style','max-height:200px');
+        $('#pre_'+id).removeClass('expanded');
     }
 
 }
