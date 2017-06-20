@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "tsb_mongo",
+      "script": "./app.js",
+      "watch": false,
+      "error_file": "/data/logs/nodes/tsb_mongo.err.log",
+      "out_file": "/data/logs/nodes/tsb_mongo.out.log",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
