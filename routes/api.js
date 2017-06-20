@@ -13,7 +13,7 @@ router.post('/api/:conn/:db/:coll/:page', function (req, res, next){
 
     var connection_list = req.app.locals.dbConnections;
     var ejson = require('mongodb-extended-json');
-    var docs_per_page = parseInt(req.body.docsPerPage) !== undefined ? parseInt(req.body.docsPerPage) :30;
+    var docs_per_page = parseInt(req.body.docsPerPage) !== undefined ? parseInt(req.body.docsPerPage) :10;
 
     // Check for existance of connection
     if(connection_list[req.params.conn] === undefined){
