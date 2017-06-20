@@ -476,11 +476,11 @@ function paginate(){
         var escaper = $('<div></div>');
         for(var i = 0; i < response.data.length; i++){
             escaper[0].textContent = JSON.stringify(response.data[i], null, 4);
-            var inner_html = '<div class="col-xs-12 col-md-11 col-lg-11 no-side-pad"><pre id="pre_'+response.data[i]._id+'" class="code-block ' + docClass + '" style="max-height: 200px;"><code class="json">' + escaper[0].innerHTML + '</code></pre></div>';
+            var inner_html = '<div class="col-xs-12 col-md-11 col-lg-11 no-side-pad"><pre id="pre_'+response.data[i]._id+'" class="code-block ' + docClass + '"><code class="json">' + escaper[0].innerHTML + '</code></pre></div>';
             inner_html += '<div class="col-md-1 col-lg-1 pad-bottom no-pad-left">';
             inner_html += '<div class="no-pad-left" role="group" aria-label="...">';
-            inner_html += '<a href="#" class="btn btn-primary btn-sm btn-group-justified" style="margin-top: 20px;border-radius:0 3px 3px 0 " onclick="expandDoc(\'' + response.data[i]._id + '\',this)">expand</a>';
-            inner_html += '<a href="#" class="btn btn-danger btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 " onclick="deleteDoc(\'' + response.data[i]._id + '\')">' + response.deleteButton + '</a>';
+            inner_html += '<a href="javascript:void(0);" class="btn btn-primary btn-sm btn-group-justified" style="margin-top: 20px;border-radius:0 3px 3px 0 " onclick="expandDoc(\'' + response.data[i]._id + '\',this)">expand</a>';
+            inner_html += '<a href="javascript:void(0);" class="btn btn-danger btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 " onclick="deleteDoc(\'' + response.data[i]._id + '\')">' + response.deleteButton + '</a>';
             inner_html += '<a href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/edit/' + response.data[i]._id + '" class="btn btn-success btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 ">' + response.editButton + '</a>';
             inner_html += '</div></div>';
             $('#coll_docs').append(inner_html);
