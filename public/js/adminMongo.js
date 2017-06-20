@@ -60,12 +60,13 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '#btnqueryDocuments', function(){
-        console.log($('#inputQueryID').val());
         if($.trim($('#inputQueryID').val()) !=''){
             $('#inputQuery').val('{"_id":{"$oid":"'+$.trim($('#inputQueryID').val())+'"}}');
         }
-        //var editor = ace.edit('inputQuery');
-        var editor_val = $.trim($('#inputQuery').val());
+        var editor = ace.edit('json');
+        var editor_val = editor.getValue();
+        // //var editor = ace.edit('inputQuery');
+        // var editor_val = $.trim($('#inputQuery').val());
 
         if(editor_val !== ''){
             // set the query in localStorage
