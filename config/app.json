@@ -3,7 +3,6 @@
     "host": "0.0.0.0",
     "port": 1235,
     "docs_per_page": 30,
-    "context": "TSBMONGO",
     "monitoring": false
   }
 }
