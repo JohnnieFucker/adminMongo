@@ -8,9 +8,10 @@ exports.addConnection = function (connection, app, callback){
     if(!connection.connOptions){
         connection.connOptions = {};
     }
-
+    
     MongoClient.connect(connection.connString, connection.connOptions, function(err, database){
         if(err){
+            console.log(err);
             callback(err, null);
         }else{
             var dbObj = {};

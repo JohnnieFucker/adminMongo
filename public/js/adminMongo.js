@@ -59,9 +59,13 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '#queryDocumentsAction', function(){
-        var editor = ace.edit('json');
-        var editor_val = editor.getValue();
+    $(document).on('click', '#btnqueryDocuments', function(){
+        console.log($('#inputQueryID').val());
+        if($.trim($('#inputQueryID').val()) !=''){
+            $('#inputQuery').val('{"_id":{"$oid":"'+$.trim($('#inputQueryID').val())+'"}}');
+        }
+        //var editor = ace.edit('inputQuery');
+        var editor_val = $.trim($('#inputQuery').val());
 
         if(editor_val !== ''){
             // set the query in localStorage
@@ -71,9 +75,10 @@ $(document).ready(function(){
             window.location.href = $('#app_context').val() + '/app/' + $('#conn_name').val() + '/' + $('#db_name').val() + '/' + $('#coll_name').val() + '/view/1';
 
             // close the queryDocuments
-            $('#queryDocuments').modal('hide');
+            // $('#queryDocuments').modal('hide');
         }else{
-            show_notification('Please enter a query', 'danger');
+            localStorage.removeItem('searchQuery');
+            window.location.href = $('#app_context').val() + '/app/' + $('#conn_name').val() + '/' + $('#db_name').val() + '/' + $('#coll_name').val() + '/view/1';
         }
     });
 
@@ -117,7 +122,7 @@ $(document).ready(function(){
             }
 
             qry_obj[key_name] = val;
-
+            
             // set the object to local storage to be used if page changes
             localStorage.setItem('searchQuery', JSON.stringify(qry_obj));
 
@@ -442,7 +447,7 @@ function paginate(){
         }
 
         var isFiltered = '';
-
+        $('#inputQuery').val(query_string);
         // enable/disable the reset filter button
         if(query_string == null){
             $('#searchReset').addClass('disabled');
@@ -471,12 +476,12 @@ function paginate(){
         var escaper = $('<div></div>');
         for(var i = 0; i < response.data.length; i++){
             escaper[0].textContent = JSON.stringify(response.data[i], null, 4);
-            var inner_html = '<div class="col-xs-12 col-md-10 col-lg-10 no-side-pad"><pre class="code-block ' + docClass + '"><i class="fa fa-chevron-down code-block_expand"></i><code class="json">' + escaper[0].innerHTML + '</code></pre></div>';
-            inner_html += '<div class="col-md-2 col-lg-2 pad-bottom no-pad-right justifiedButtons">';
-            inner_html += '<div class="btn-group btn-group-justified justifiedButtons" role="group" aria-label="...">';
-            inner_html += '<a href="#" class="btn btn-danger btn-sm" onclick="deleteDoc(\'' + response.data[i]._id + '\')">' + response.deleteButton + '</a>';
-            inner_html += '<a href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/' + response.data[i]._id + '" class="btn btn-info btn-sm">' + response.linkButton + '</a>';
-            inner_html += '<a href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/edit/' + response.data[i]._id + '" class="btn btn-success btn-sm">' + response.editButton + '</a>';
+            var inner_html = '<div class="col-xs-12 col-md-11 col-lg-11 no-side-pad"><pre id="pre_'+response.data[i]._id+'" class="code-block ' + docClass + '" style="max-height: 200px;"><code class="json">' + escaper[0].innerHTML + '</code></pre></div>';
+            inner_html += '<div class="col-md-1 col-lg-1 pad-bottom no-pad-left">';
+            inner_html += '<div class="no-pad-left" role="group" aria-label="...">';
+            inner_html += '<a href="#" class="btn btn-primary btn-sm btn-group-justified" style="margin-top: 20px;border-radius:0 3px 3px 0 " onclick="expandDoc(\'' + response.data[i]._id + '\',this)">expand</a>';
+            inner_html += '<a href="#" class="btn btn-danger btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 " onclick="deleteDoc(\'' + response.data[i]._id + '\')">' + response.deleteButton + '</a>';
+            inner_html += '<a href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/edit/' + response.data[i]._id + '" class="btn btn-success btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 ">' + response.editButton + '</a>';
             inner_html += '</div></div>';
             $('#coll_docs').append(inner_html);
         };
@@ -507,6 +512,16 @@ function paginate(){
     .fail(function(){
         show_notification('Error getting data from Query API', 'danger');
     });
+}
+function expandDoc(id,obj){
+    if($(obj).text()=='expand'){
+        $(obj).text('collapse');
+        $('#pre_'+id).attr('style','');
+    }else{
+        $(obj).text('expand');
+        $('#pre_'+id).attr('style','max-height:200px');
+    }
+
 }
 
 function deleteDoc(doc_id){
@@ -654,4 +669,9 @@ function show_notification(msg, type, reload_page, timeout){
             location.reload();
         }
     });
+}
+
+function resetAndGo(url){
+    localStorage.removeItem('searchQuery');
+    window.location.href = url;
 }

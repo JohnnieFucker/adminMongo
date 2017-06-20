@@ -130,5 +130,8 @@
 	"Backup": "Backup",
 	"Database successfully backed up": "Database successfully backed up",
 	"Query": "Query",
-	"Indexes": "Indexes"
+	"Indexes": "Indexes",
+	"User": "User",
+	"DB User": "DB User",
+	"DB Password": "DB Password"
 }

@@ -4,10 +4,6 @@ var path = require('path');
 
 // checks for the password in the /config/app.json file if it's set
 exports.checkLogin = function(req, res, next){
-    var passwordConf = req.nconf.app.get('app');
-
-    // only check for login if a password is specified in the /config/app.json file
-    if(passwordConf && passwordConf.hasOwnProperty('password')){
         // dont require login session for login route
         if(req.path === '/app/login' || req.path === '/app/logout' || req.path === '/app/login_action'){
             next();
@@ -19,10 +15,6 @@ exports.checkLogin = function(req, res, next){
                 res.redirect(req.app_context + '/app/login');
             }
         }
-    }else{
-        // no password is set so we continue
-        next();
-    }
 };
 
 // gets some db stats
