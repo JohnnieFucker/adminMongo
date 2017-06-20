@@ -63,7 +63,7 @@ $(document).ready(function(){
         if($.trim($('#inputQueryID').val()) !=''){
             $('#inputQuery').val('{"_id":{"$oid":"'+$.trim($('#inputQueryID').val())+'"}}');
         }
-        var editor = ace.edit('json');
+        var editor = ace.edit('inputQuery');
         var editor_val = editor.getValue();
         // //var editor = ace.edit('inputQuery');
         // var editor_val = $.trim($('#inputQuery').val());
