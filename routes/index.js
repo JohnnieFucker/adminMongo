@@ -20,9 +20,8 @@ router.all('/app/*', common.checkLogin, function (req, res, next) {
 
 // the home route
 router.get('/app/', function (req, res, next){
-    if(req.app.locals.dbConnections){
-        var first_conn = Object.keys(req.app.locals.dbConnections)[0];
-        res.redirect(req.app_context + '/app/' + first_conn);
+    if(req.session&&req.session.loggedIn&&req.session.selectDB){
+        res.redirect(req.app_context + '/app/' + req.session.selectDB);
         return;
     }
     res.redirect(req.app_context + '/app/login');
@@ -80,6 +79,7 @@ router.post('/app/login_action', function (req, res, next) {
                     });
                 } else  {
                     req.session.loggedIn = true;
+                    req.session.selectDB = req.body.inputDB;
                     res.redirect(req.app_context + `/app/${req.body.inputDB}`);
                 }
             });
