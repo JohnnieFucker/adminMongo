@@ -277,6 +277,7 @@ $(document).ready(function(){
         var editor = ace.edit('json');
         if(localStorage.getItem('searchQuery')){
             editor.setValue(localStorage.getItem('searchQuery'));
+            localStorage.removeItem('searchQuery')
         }else{
             editor.setValue('{}');
         }
