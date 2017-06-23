@@ -79,7 +79,7 @@
         {{#each db_stats}}
             <li class="list-group-item"><i class="fa fa-database"></i>&nbsp;&nbsp; <a href="{{app_context}}/app/{{@root.conn_name}}/{{@key}}">{{@key}}</a></li>
             {{#each this}}
-                <li class="list-group-item coll_indent">
+                <li class="list-group-item" style="padding:2px 5px;">
                     <div class="row">
                         <div class='col-lg-4 col-sm-12'>
                             <i class="fa fa-table"></i>&nbsp;&nbsp; <a href="{{app_context}}/app/{{@root.conn_name}}/{{@../key}}/{{@key}}/view">{{@key}}</a>
