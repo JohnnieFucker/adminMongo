@@ -482,7 +482,7 @@ function paginate(){
             inner_html += '<div class="no-pad-left" role="group" aria-label="...">';
             inner_html += '<a href="javascript:void(0);" class="btn btn-primary btn-sm btn-group-justified" style="margin-top: 20px;border-radius:0 3px 3px 0 " onclick="expandDoc(\'' + response.data[i]._id + '\',this)">expand</a>';
             inner_html += '<a href="javascript:void(0);" class="btn btn-danger btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 " onclick="deleteDoc(\'' + response.data[i]._id + '\')">' + response.deleteButton + '</a>';
-            inner_html += '<a href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/edit/' + response.data[i]._id + '" class="btn btn-success btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 ">' + response.editButton + '</a>';
+            inner_html += '<a target="_blank" href="' + $('#app_context').val() + '/app/' + conn_name + '/' + db_name + '/' + coll_name + '/edit/' + response.data[i]._id + '" class="btn btn-success btn-sm btn-group-justified" style="margin-top: 10px;border-radius:0 3px 3px 0 ">' + response.editButton + '</a>';
             inner_html += '</div></div>';
             $('#coll_docs').append(inner_html);
         };
