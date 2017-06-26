@@ -1,3 +1,4 @@
+var nowQuery = false;
 $(document).ready(function(){
     // paginate if value is set
     if($('#to_paginate').val() === 'true'){
@@ -404,7 +405,12 @@ function paginate(){
     if(doc_id){
         query_string = toEJSON.serializeString('{"_id":ObjectId("' + doc_id + '")}');
     }else{
-        var query_string = localStorage.getItem('searchQuery');
+        var query_string;
+        if(nowQuery){
+            query_string = nowQuery;
+        }else{
+            query_string = localStorage.getItem('searchQuery');
+        }
         query_string = toEJSON.serializeString(query_string);
     }
 
@@ -449,6 +455,7 @@ function paginate(){
 
         var isFiltered = '';
         $('#inputQuery').val(query_string);
+        nowQuery = query_string;
         // enable/disable the reset filter button
         if(query_string == null){
             $('#searchReset').addClass('disabled');
