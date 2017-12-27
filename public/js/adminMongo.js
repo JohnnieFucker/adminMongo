@@ -680,5 +680,6 @@ function show_notification(msg, type, reload_page, timeout){
 
 function resetAndGo(url){
     localStorage.removeItem('searchQuery');
-    window.location.href = url;
+    //window.location.href = url;
+    window.open(url);
 }
