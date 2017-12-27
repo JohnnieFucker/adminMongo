@@ -2,6 +2,8 @@ config/
 data/
 node_modules/
 releases/
+.idea/
+.DS_Store
 
 
 ### Node ###
