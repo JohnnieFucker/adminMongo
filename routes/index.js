@@ -74,7 +74,8 @@ router.post('/app/login_action', function (req, res, next) {
 
         console.log(dbstr);
         try {
-            MongoURI.parse(dbstr);
+            let uri = MongoURI.parse(dbstr);
+            console.log(uri);
             console.log(dbstr);
             connPool.addConnection({connName: req.body.inputDB, connString: dbstr}, req.app, function (err, data) {
                 if (err) {
