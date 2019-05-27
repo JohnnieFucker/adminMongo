@@ -66,11 +66,10 @@ router.post('/app/login_action', function (req, res, next) {
     let err = false;
     if (cfg[req.body.inputDB]) {
         let dbstr = `mongodb://${req.body.inputUser}:${req.body.inputPassword}@${cfg[req.body.inputDB].host}:${cfg[req.body.inputDB].port}/${cfg[req.body.inputDB].db}`;
-        if (cfg[req.body.inputDB].hasOwnProperty('authMechanism') && cfg[req.body.inputDB].hasOwnProperty('authSource')) {
-            dbstr += '?authMechanism=' + cfg[req.body.inputDB]['authMechanism'] + '&authSource=' + cfg[req.body.inputDB]['authSource'];
+        if (cfg.hasOwnProperty('authMechanism') && cfg.hasOwnProperty('authSource')) {
+            dbstr += '?authMechanism=' + cfg.hasOwnProperty('authMechanism') + '&authSource=' + cfg.hasOwnProperty('authSource');
         }
-
-        console.log(dbstr);
+        
         let connPool = require('../connections');
         let MongoURI = require('mongo-uri');
         try {
