@@ -69,8 +69,6 @@ router.post('/app/login_action', function (req, res, next) {
     if (cfg[req.body.inputDB]) {
         let dbstr = `mongodb://${req.body.inputUser}:${req.body.inputPassword}@${cfg[req.body.inputDB].host}:${cfg[req.body.inputDB].port}/${cfg[req.body.inputDB].db}`;
         let connOptions = {};
-        console.log(req.body.inputDB);
-        console.log(cfg[req.body.inputDB]);
         if (cfg[req.body.inputDB].hasOwnProperty('connOptions')) {
             connOptions = cfg[req.body.inputDB]['connOptions'];
         }
