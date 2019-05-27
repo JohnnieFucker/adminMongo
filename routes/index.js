@@ -68,16 +68,18 @@ router.post('/app/login_action', function (req, res, next) {
     let err = false;
     if (cfg[req.body.inputDB]) {
         let dbstr = `mongodb://${req.body.inputUser}:${req.body.inputPassword}@${cfg[req.body.inputDB].host}:${cfg[req.body.inputDB].port}/${cfg[req.body.inputDB].db}`;
-        if (cfg[req.body.inputDB].hasOwnProperty('authMechanism') && cfg[req.body.inputDB].hasOwnProperty('authSource')) {
-            dbstr += '?authMechanism=' + cfg[req.body.inputDB]['authMechanism'] + '&authSource=' + cfg[req.body.inputDB]['authSource'];
+        let connOptions = {};
+        if (cfg[req.body.inputDB].hasOwnProperty('connOptions')) {
+            connOptions = cfg[req.body.inputDB]['connOptions'];
         }
 
         console.log(dbstr);
-        let uri = MongoURI.parse(dbstr);
-        console.log(uri);
+        MongoURI.parse(dbstr);
+        // console.log(uri);
         console.log(dbstr);
+
         try {
-            connPool.addConnection({connName: req.body.inputDB, connString: dbstr}, req.app, function (err, data) {
+            connPool.addConnection({connName: req.body.inputDB, connString: dbstr,connOptions:{}}, req.app, function (err, data) {
                 if (err) {
                     res.render('login', {
                         message: err.message,
