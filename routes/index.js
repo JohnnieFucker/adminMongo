@@ -79,7 +79,7 @@ router.post('/app/login_action', function (req, res, next) {
         console.log(dbstr);
 
         try {
-            connPool.addConnection({connName: req.body.inputDB, connString: dbstr,connOptions:{}}, req.app, function (err, data) {
+            connPool.addConnection({connName: req.body.inputDB, connString: dbstr,connOptions:connOptionss}, req.app, function (err, data) {
                 if (err) {
                     res.render('login', {
                         message: err.message,
