@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var _ = require('lodash');
 var common = require('./common');
+const connPool = require('../connections');
+const MongoURI = require('mongo-uri');
 
 // runs on all routes and checks password if one is setup
 router.all('/*', common.checkLogin, function (req, res, next) {
@@ -71,8 +73,6 @@ router.post('/app/login_action', function (req, res, next) {
         }
 
         console.log(dbstr);
-        let connPool = require('../connections');
-        let MongoURI = require('mongo-uri');
         try {
             MongoURI.parse(dbstr);
             console.log(dbstr);
@@ -137,7 +137,6 @@ router.get('/app/monitoring/:conn/', function (req, res, next) {
 router.get('/app/:conn', function (req, res, next) {
 
     var connection_list = req.app.locals.dbConnections;
-    var MongoURI = require('mongo-uri');
     // if no connection found
     if (Object.keys(connection_list).length === 0) {
         res.redirect(req.app_context + '/app');
