@@ -19,8 +19,8 @@ router.all('/app/*', common.checkLogin, function (req, res, next) {
 });
 
 // the home route
-router.get('/app/', function (req, res, next) {
-    if (req.session && req.session.loggedIn && req.session.selectDB) {
+router.get('/app/', function (req, res, next){
+    if(req.session&&req.session.loggedIn&&req.session.selectDB){
         res.redirect(req.app_context + '/app/' + req.session.selectDB);
         return;
     }
@@ -66,28 +66,25 @@ router.post('/app/login_action', function (req, res, next) {
     let err = false;
     if (cfg[req.body.inputDB]) {
         let dbstr = `mongodb://${req.body.inputUser}:${req.body.inputPassword}@${cfg[req.body.inputDB].host}:${cfg[req.body.inputDB].port}/${cfg[req.body.inputDB].db}`;
-        if (cfg.hasOwnProperty('authMechanism') && cfg.hasOwnProperty('authSource')) {
-            dbstr += '?authMechanism=' + cfg.hasOwnProperty('authMechanism') + '&authSource=' + cfg.hasOwnProperty('authSource');
-        }
-        
         let connPool = require('../connections');
         let MongoURI = require('mongo-uri');
-        try {
+        console.log(dbstr);
+        try{
             MongoURI.parse(dbstr);
-            connPool.addConnection({connName: req.body.inputDB, connString: dbstr}, req.app, function (err, data) {
-                if (err) {
+            connPool.addConnection({connName: req.body.inputDB, connString: dbstr}, req.app, function (err, data){
+                if(err){
                     res.render('login', {
                         message: err.message,
                         dbList: dbs,
                         helpers: req.handlebars.helpers
                     });
-                } else {
+                } else  {
                     req.session.loggedIn = true;
                     req.session.selectDB = req.body.inputDB;
                     res.redirect(req.app_context + `/app/${req.body.inputDB}`);
                 }
             });
-        } catch (err) {
+        }catch(err){
             err = 'parse connect error';
         }
     } else {
@@ -133,6 +130,7 @@ router.get('/app/monitoring/:conn/', function (req, res, next) {
 
 // The base connection route showing all DB's for connection
 router.get('/app/:conn', function (req, res, next) {
+    
 
     var connection_list = req.app.locals.dbConnections;
     var MongoURI = require('mongo-uri');
